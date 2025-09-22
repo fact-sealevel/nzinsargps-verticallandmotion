@@ -1,5 +1,5 @@
 import numpy as np
-import pickle as p
+#import pickle as p
 import os
 import sys
 import re
@@ -70,13 +70,16 @@ def ReadNZVLM(infile, qfmin = 5):
 	return(lats, lons, vlm_rates, bop_rates, sigmas, qfs)
 
 
-def NZInsarGPS_preprocess_verticallandmotion(pipeline_id, min_quality_flag, use_boprates):
+def NZInsarGPS_preprocess_verticallandmotion(pipeline_id : str, 
+											 min_quality_flag: float, 
+											 use_boprates: int,
+											 inputfile: str) -> dict:
 
 	# Define the input file based on input type
 	#type2file = {"grid_insar": "VLM-grid_insar.dat", "grid_gps": "VLM-grid_gps.dat", "hires": "coast_ins.dat"}
 	#if inputtype not in type2file.keys():
 	#	raise Exception("Input type not recognized: {}".format(inputtype))
-	inputfile = os.path.join(os.path.dirname(__file__), "NZ_2km.txt")
+	#inputfile = os.path.join(os.path.dirname(__file__), "NZ_2km.txt")
 
 	# Read input file
 	(lats, lons, vlm_rates, bop_rates, sigmas, qfs) = ReadNZVLM(inputfile, min_quality_flag)
@@ -93,13 +96,14 @@ def NZInsarGPS_preprocess_verticallandmotion(pipeline_id, min_quality_flag, use_
 	outdata = {'lats': lats, 'lons': lons, 'rates': -1*rates, 'sds': sigmas,\
 				'min_qf': min_quality_flag, 'use_boprates': use_boprates}
 
+	return outdata
 	# Define the data directory
-	outdir = os.path.dirname(__file__)
+	#outdir = os.path.dirname(__file__)
 
 	# Write the rates data to a pickle file
-	outfile = open(os.path.join(outdir, "{}_data.pkl".format(pipeline_id)), 'wb')
-	p.dump(outdata, outfile)
-	outfile.close()
+	#outfile = open(os.path.join(outdir, "{}_data.pkl".format(pipeline_id)), 'wb')
+	#p.dump(outdata, outfile)
+	#outfile.close()
 
 
 if __name__ == '__main__':

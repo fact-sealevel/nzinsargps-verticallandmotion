@@ -1,12 +1,12 @@
 import numpy as np
-import pickle
+#import pickle
 import os
 import sys
 import time
 import argparse
 import re
 from scipy.stats import norm
-from read_locationfile import ReadLocationFile
+from nzinsargps_verticallandmotion.read_locationfile import ReadLocationFile
 from netCDF4 import Dataset
 
 import xarray as xr
@@ -65,34 +65,44 @@ def NearestPoints(qlats, qlons, lats, lons, tol):
 	return(list(idx))
 
 
-def NZInsarGPS_postprocess_verticallandmotion(nsamps, rng_seed, locationfilename, baseyear, pyear_start, pyear_end, pyear_step, chunksize, pipeline_id):
+def NZInsarGPS_postprocess_verticallandmotion(preprocess_dict, 
+											  nsamps, 
+											  rng_seed, 
+											  locationfilename, 
+											  baseyear, 
+											  pyear_start, 
+											  pyear_end, 
+											  pyear_step, 
+											  chunksize, 
+											  pipeline_id,
+											  output_path):
 
 	# Read in the data from the preprocessing stage
-	datafile = "{}_data.pkl".format(pipeline_id)
-	try:
-		f = open(datafile, 'rb')
-	except:
-		print("Cannot open datafile\n")
+	#datafile = "{}_data.pkl".format(pipeline_id)
+	#try:
+	#	f = open(datafile, 'rb')
+	#except:
+	#	print("Cannot open datafile\n")
 
 	# Extract the data from the file
-	my_data = pickle.load(f)
-	f.close()
+	#my_data = pickle.load(f)
+	#f.close()
 
 	# Extract the relevant data
-	lats = my_data['lats']
-	lons = my_data['lons']
-	rates = my_data['rates']
-	sds = my_data['sds']
-	min_qf = my_data['min_qf']
-	use_boprates = my_data['use_boprates']
+	lats = preprocess_dict['lats']
+	lons = preprocess_dict['lons']
+	rates = preprocess_dict['rates']
+	sds = preprocess_dict['sds']
+	min_qf = preprocess_dict['min_qf']
+	use_boprates = preprocess_dict['use_boprates']
 
 	# Define the target years
 	targyears = np.arange(pyear_start, pyear_end+1, pyear_step)
 	targyears = np.union1d(targyears, baseyear)
 
 	# Load site locations
-	locationfile = os.path.join(os.path.dirname(__file__), locationfilename)
-	(_, site_ids, site_lats, site_lons) = ReadLocationFile(locationfile)
+	#locationfile = os.path.join(os.path.dirname(__file__), locationfilename)
+	(_, site_ids, site_lats, site_lons) = ReadLocationFile(locationfilename)
 
 	# Dimension variables
 	nyears = len(targyears)
@@ -108,7 +118,7 @@ def NZInsarGPS_postprocess_verticallandmotion(nsamps, rng_seed, locationfilename
 	norm_inv_perm = rng.permutation(norm_inv)
 
 	# Missing value for netcdf file
-	nc_missing_value = np.nan #np.iinfo(np.int16).min
+	nc_missing_value = -9999 #EM added to be able to write xr.ds w/ int dtype. np.nan #np.iinfo(np.int16).min
 
 	# Get the rates and sds for the locations of interest
 	site_rates = da.array([rates[x] for x in site_ids_map])
@@ -140,10 +150,18 @@ def NZInsarGPS_postprocess_verticallandmotion(nsamps, rng_seed, locationfilename
 		coords={"years": targyears, "locations": site_ids, "samples": np.arange(nsamps)}, attrs=ncvar_attributes)
 
 	# Write the netcdf output file
-	vlm_out.to_netcdf("{0}_localsl.nc".format(pipeline_id), encoding={"sea_level_change": {"dtype": "f4", "zlib": True, "complevel":4, "_FillValue": nc_missing_value}})
+	output_fname = "{0}_localsl.nc".format(pipeline_id)
+	output_fpath = os.path.join(output_path, output_fname)
+	vlm_out.to_netcdf(output_fpath, 
+				   encoding={"sea_level_change": 
+				 		{"dtype": "i2", 
+						 "zlib": True, 
+						 "complevel":4, 
+						 "_FillValue": nc_missing_value}})
+	#vlm_out.to_netcdf("{0}_localsl.nc".format(pipeline_id), encoding={"sea_level_change": {"dtype": "f4", "zlib": True, "complevel":4, "_FillValue": nc_missing_value}})
 
 
-	return(None)
+	#return(None)
 
 	
 
