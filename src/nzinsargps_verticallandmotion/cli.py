@@ -22,7 +22,7 @@ import click
 @click.option(
     "--min_qf",
     help = "Minimum value of data quality to use (default = 5)",
-    default = 5.0,
+    default = 5,
     envvar = "NZINSARGPS_VLM_MIN_QF"
 )
 @click.option(
@@ -77,7 +77,7 @@ import click
     "--rngseed",
     envvar="NZINSARGPS_VLM_RNGSEED",
     help="Seed for the random number generator [default=1234]",
-    default=1234,
+    default=5678,
 )
 @click.option(
     "--location-file",
@@ -122,7 +122,6 @@ def main(
     # Run the preprocessing stage
     preprocess_dict = NZInsarGPS_preprocess_verticallandmotion(
         inputfile = input_fname,
-        pipeline_id = pipeline_id,
         min_quality_flag = min_qf,
         use_boprates = use_boprates
     )

@@ -70,10 +70,10 @@ def ReadNZVLM(infile, qfmin = 5):
 	return(lats, lons, vlm_rates, bop_rates, sigmas, qfs)
 
 
-def NZInsarGPS_preprocess_verticallandmotion(pipeline_id : str, 
-											 min_quality_flag: float, 
+def NZInsarGPS_preprocess_verticallandmotion( inputfile: str,
+											 min_quality_flag: int, 
 											 use_boprates: int,
-											 inputfile: str) -> dict:
+											 ) -> dict:
 
 	# Define the input file based on input type
 	#type2file = {"grid_insar": "VLM-grid_insar.dat", "grid_gps": "VLM-grid_gps.dat", "hires": "coast_ins.dat"}
