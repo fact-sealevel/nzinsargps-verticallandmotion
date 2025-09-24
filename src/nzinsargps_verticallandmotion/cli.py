@@ -1,15 +1,16 @@
 from nzinsargps_verticallandmotion.NZInsarGPS_verticallandmotion_preprocess import (
-     NZInsarGPS_preprocess_verticallandmotion
+    NZInsarGPS_preprocess_verticallandmotion,
 )
 from nzinsargps_verticallandmotion.NZInsarGPS_verticallandmotion_postprocess import (
-     NZInsarGPS_postprocess_verticallandmotion
+    NZInsarGPS_postprocess_verticallandmotion,
 )
 import click
 
-#input args to add
-# input type (in preprocess) 
+# input args to add
+# input type (in preprocess)
 # locationfile
 # chunksize
+
 
 @click.command()
 @click.option(
@@ -17,29 +18,28 @@ import click
     required=True,
     type=str,
     help="Unique identifier for this instance of the module. Used to name output files",
-    envvar = "NZINSARGPS_VLM_PIPELINE_ID"
+    envvar="NZINSARGPS_VLM_PIPELINE_ID",
 )
 @click.option(
     "--min_qf",
-    help = "Minimum value of data quality to use (default = 5)",
-    default = 5,
-    envvar = "NZINSARGPS_VLM_MIN_QF"
+    help="Minimum value of data quality to use (default = 5)",
+    default=5,
+    envvar="NZINSARGPS_VLM_MIN_QF",
 )
 @click.option(
     "--use_boprates",
     type=int,
     default=1,
-    help = "Use the BOP corrected rates instead of the raw VLM rates (default = 1)",
-    envvar = "NZINSARGPS_VLM_USE_BOPRATES"
+    help="Use the BOP corrected rates instead of the raw VLM rates (default = 1)",
+    envvar="NZINSARGPS_VLM_USE_BOPRATES",
 )
 @click.option(
     "--input-fname",
     type=str,
     default="data/input/NZ_2km.txt",
-    envvar = "NZINSARGPS_VLM_INPUT_FNAME",
-    help= "input file name (??)"
+    envvar="NZINSARGPS_VLM_INPUT_FNAME",
+    help="input file name (??)",
 )
-
 @click.option(
     "--pyear-start",
     envvar="NZINSARGPS_VLM_PYEAR_START",
@@ -85,7 +85,6 @@ import click
     help="Path to location file for postprocessing",
     default="location.lst",
 )
-
 @click.option(
     "--chunksize",
     type=int,
@@ -100,7 +99,6 @@ import click
     help="Path to output directory",
     default="output",
 )
-
 def main(
     pipeline_id,
     min_qf,
@@ -114,31 +112,30 @@ def main(
     rngseed,
     location_file,
     chunksize,
-    output_path
+    output_path,
 ):
     """Run the NZInsarGPS verticallandmotion module"""
     click.echo("Hello from nzinsargps-verticallandmotion!")
-    
+
     # Run the preprocessing stage
     preprocess_dict = NZInsarGPS_preprocess_verticallandmotion(
-        inputfile = input_fname,
-        min_quality_flag = min_qf,
-        use_boprates = use_boprates
+        inputfile=input_fname, min_quality_flag=min_qf, use_boprates=use_boprates
     )
 
     NZInsarGPS_postprocess_verticallandmotion(
-        preprocess_dict = preprocess_dict,
-        nsamps = nsamps,
-        rng_seed = rngseed,
-        locationfilename = location_file,
-        baseyear = baseyear,
-        pyear_start = pyear_start,
-        pyear_end = pyear_end,
-        pyear_step = pyear_step,
-        chunksize = chunksize,
-        pipeline_id = pipeline_id,
-        output_path = output_path
+        preprocess_dict=preprocess_dict,
+        nsamps=nsamps,
+        rng_seed=rngseed,
+        locationfilename=location_file,
+        baseyear=baseyear,
+        pyear_start=pyear_start,
+        pyear_end=pyear_end,
+        pyear_step=pyear_step,
+        chunksize=chunksize,
+        pipeline_id=pipeline_id,
+        output_path=output_path,
     )
+
 
 if __name__ == "__main__":
     main()
