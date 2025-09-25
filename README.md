@@ -18,13 +18,30 @@ mkdir -p ./data/output
 
 #Add location file to input dir
 echo "New_York	12	40.70	-74.01" > ./data/input/location.lst
-
 ```
 
-Now, run the CLI app: (note, haven't setup docker yet so this is a stand-in):
+Now, run the CLI application. There are multiple ways to do this. You can clone the repository and run the program locally using `uv` or in a Docker container built from the provided Dockerfile. Alternatively, you can run the scripts that are hosted remotely on GitHub using `uvx --from`.
 
-replace the abs paths with machine-specific paths to the specified files. To run without cloning & creating project on local machine:
+### Running in a container
 
+After you've cloned the repo and downloaded the necessary data, from the root directory, create a docker container:
+```shell
+docker build -t nzinsargps-verticallandmotion .
+```
+
+Then, run the container, mounting a volume in the container to the location of the repo on your machine. Execute the application and pass the necessary arguments to the CLI tool:
+```shell
+docker run -it --volume=path/to/local/nzinsargps-verticallandmotion:/opt/nzinsar_vlm -w /opt/nzinsar_vlm nzinsargps-verticallandmotion --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt --location-file data/input/location.lst --output-path data/output --rngseed 5678
+```
+### Running locally
+
+If you've cloned the repository locally, from the root directory, run the application using `uv`:
+```shell
+uv run  --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt --location-file data/input/location.lst --output-path data/output --rngseed 5678
+```
+
+### Running remote scripts
+Alternatively, from the root directory, call the scripts hosted remotely in the GitHub repo:
 ```shell
 uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst --output-path path/to/data/output --rngseed 5678
  
@@ -57,10 +74,17 @@ Options:
   --output-path TEXT           Path to output directory
   --help                       Show this message and exit.
   ```
-See this help documentation by running:
+
+See this help documentation by passing the `--help` flag when running the application in any of the options above. For example: 
+
 ```shell
-uv run nzinsargps-verticallandmotion --help 
+uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package nzinsargps-verticallandmotion --help
 ```   
+
+```shell
+uv run nzinsargps-verticallandmotion --help
+```
+
 ## Results
 If this module runs successfully, a single netCDF containing projections of local sea level change will appear in ./data/output. 
 
