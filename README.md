@@ -26,15 +26,9 @@ Now, run the CLI app: (note, haven't setup docker yet so this is a stand-in):
 replace the abs paths with machine-specific paths to the specified files. To run without cloning & creating project on local machine:
 
 ```shell
-uv run nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst --output-path path/to/data/output --rngseed 5678
-```
-
-or: 
-```shell
 uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst --output-path path/to/data/output --rngseed 5678
  
 ```
-**NOTE**: Seed currently set to 5678 to match `v.1`
 
 ## Features 
 ```shell
