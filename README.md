@@ -31,19 +31,26 @@ docker build -t nzinsargps-verticallandmotion .
 
 Then, run the container, mounting a volume in the container to the location of the repo on your machine. Execute the application and pass the necessary arguments to the CLI tool:
 ```shell
-docker run -it --volume=path/to/local/nzinsargps-verticallandmotion:/opt/nzinsar_vlm -w /opt/nzinsar_vlm nzinsargps-verticallandmotion --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt --location-file data/input/location.lst --output-path data/output --rngseed 5678
+docker run --rm --volume=path/to/local/nzinsargps-verticallandmotion:/opt/nzinsar_vlm \
+-w /opt/nzinsar_vlm nzinsargps-verticallandmotion --pipeline-id 'YOUR PIPELINE ID' \
+--input-fname data/input/NZ_2km.txt --location-file data/input/location.lst \
+--output-path data/output --rngseed 5678
 ```
 ### Running locally
 
 If you've cloned the repository locally, from the root directory, run the application using `uv`:
 ```shell
-uv run  --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt --location-file data/input/location.lst --output-path data/output --rngseed 5678
+uv run  --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt \
+ --location-file data/input/location.lst --output-path data/output --rngseed 5678
 ```
 
 ### Running remote scripts
 Alternatively, from the root directory, call the scripts hosted remotely in the GitHub repo:
 ```shell
-uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst --output-path path/to/data/output --rngseed 5678
+uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package \
+nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' \
+ --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst \
+--output-path path/to/data/output --rngseed 5678
  
 ```
 
