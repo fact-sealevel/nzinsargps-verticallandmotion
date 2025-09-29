@@ -92,23 +92,13 @@ def NZInsarGPS_postprocess_verticallandmotion(
     pipeline_id,
     output_path,
 ):
-    # Read in the data from the preprocessing stage
-    # datafile = "{}_data.pkl".format(pipeline_id)
-    # try:
-    # f = open(datafile, 'rb')
-    # except:
-    # print("Cannot open datafile\n")
-
-    # Extract the data from the file
-    # my_data = pickle.load(f)
-    # f.close()
-
+    
     # Extract the relevant data
     lats = preprocess_dict["lats"]
     lons = preprocess_dict["lons"]
     rates = preprocess_dict["rates"]
     sds = preprocess_dict["sds"]
-    # min_qf = preprocess_dict["min_qf"]
+    # min_qf = preprocess_dict["min_qf"]  No longer used
     # use_boprates = preprocess_dict["use_boprates"]
 
     # Define the target years
@@ -116,10 +106,9 @@ def NZInsarGPS_postprocess_verticallandmotion(
     targyears = np.union1d(targyears, baseyear)
 
     # Load site locations
-    # locationfile = os.path.join(os.path.dirname(__file__), locationfilename)
     (_, site_ids, site_lats, site_lons) = ReadLocationFile(locationfilename)
 
-    # Dimension variables
+    # Dimension variables -- not used
     # nyears = len(targyears)
     # nsites = len(site_ids)
 
@@ -195,9 +184,7 @@ def NZInsarGPS_postprocess_verticallandmotion(
             }
         },
     )
-    # vlm_out.to_netcdf("{0}_localsl.nc".format(pipeline_id), encoding={"sea_level_change": {"dtype": "f4", "zlib": True, "complevel":4, "_FillValue": nc_missing_value}})
-
-    # return(None)
+   
 
 
 if __name__ == "__main__":

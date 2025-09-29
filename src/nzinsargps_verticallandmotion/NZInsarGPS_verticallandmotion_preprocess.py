@@ -72,6 +72,7 @@ def NZInsarGPS_preprocess_verticallandmotion(
     min_quality_flag: int,
     use_boprates: int,
 ) -> dict:
+    
     # Define the input file based on input type
     # type2file = {"grid_insar": "VLM-grid_insar.dat", "grid_gps": "VLM-grid_gps.dat", "hires": "coast_ins.dat"}
     # if inputtype not in type2file.keys():
@@ -102,13 +103,7 @@ def NZInsarGPS_preprocess_verticallandmotion(
     }
 
     return outdata
-    # Define the data directory
-    # outdir = os.path.dirname(__file__)
-
-    # Write the rates data to a pickle file
-    # outfile = open(os.path.join(outdir, "{}_data.pkl".format(pipeline_id)), 'wb')
-    # p.dump(outdata, outfile)
-    # outfile.close()
+    
 
 
 if __name__ == "__main__":
