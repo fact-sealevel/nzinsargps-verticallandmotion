@@ -97,7 +97,7 @@ import click
     "--output-path",
     type=str,
     envvar="NZINSARGPS_VLM_OUTPUT_PATH",
-    help="Path to output directory",
+    help="Path to output LSL file.",
     default="output",
 )
 def main(
