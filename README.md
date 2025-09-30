@@ -32,25 +32,26 @@ docker build -t nzinsargps-verticallandmotion .
 Then, run the container, mounting a volume in the container to the location of the repo on your machine. Execute the application and pass the necessary arguments to the CLI tool:
 ```shell
 docker run --rm --volume=path/to/local/nzinsargps-verticallandmotion:/opt/nzinsar_vlm \
--w /opt/nzinsar_vlm nzinsargps-verticallandmotion --pipeline-id 'YOUR PIPELINE ID' \
+-w /opt/nzinsar_vlm nzinsargps-verticallandmotion \
 --input-fname data/input/NZ_2km.txt --location-file data/input/location.lst \
---output-path data/output --rngseed 5678
+--output-path data/output/lslr.nc --rngseed 5678
 ```
 ### Running locally
 
 If you've cloned the repository locally, from the root directory, run the application using `uv`:
 ```shell
-uv run  --pipeline-id 'YOUR PIPELINE ID' --input-fname data/input/NZ_2km.txt \
- --location-file data/input/location.lst --output-path data/output --rngseed 5678
+uv run  --input-fname data/input/NZ_2km.txt \
+--location-file data/input/location.lst \ --output-path data/output/lslr.nc --rngseed 5678
 ```
 
 ### Running remote scripts
 Alternatively, from the root directory, call the scripts hosted remotely in the GitHub repo:
 ```shell
 uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package \
-nzinsargps-verticallandmotion --pipeline-id 'nzinsargps.vlm.nzinsargpsvlm.NZInsarGPS.verticallandmotion' \
+nzinsargps-verticallandmotion \
  --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst \
---output-path path/to/data/output --rngseed 5678
+ --output-path path/to/data/output/lslr.nc \
+ --rngseed 5678
  
 ```
 
@@ -61,8 +62,6 @@ Usage: nzinsargps-verticallandmotion [OPTIONS]
   Run the NZInsarGPS verticallandmotion module
 
 Options:
-  --pipeline-id TEXT           Unique identifier for this instance of the
-                               module. Used to name output files  [required]
   --min_qf INTEGER             Minimum value of data quality to use (default =
                                5)
   --use_boprates INTEGER       Use the BOP corrected rates instead of the raw

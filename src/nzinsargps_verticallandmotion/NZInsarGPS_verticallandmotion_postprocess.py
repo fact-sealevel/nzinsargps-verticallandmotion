@@ -89,8 +89,7 @@ def NZInsarGPS_postprocess_verticallandmotion(
     pyear_end,
     pyear_step,
     chunksize,
-    pipeline_id,
-    output_path,
+    output_file,
 ):
     
     # Extract the relevant data
@@ -171,10 +170,8 @@ def NZInsarGPS_postprocess_verticallandmotion(
     )
 
     # Write the netcdf output file
-    output_fname = "{0}_localsl.nc".format(pipeline_id)
-    output_fpath = os.path.join(output_path, output_fname)
     vlm_out.to_netcdf(
-        output_fpath,
+        output_file,
         encoding={
             "sea_level_change": {
                 "dtype": "i2",

@@ -8,13 +8,6 @@ import click
 
 @click.command()
 @click.option(
-    "--pipeline-id",
-    required=True,
-    type=str,
-    help="Unique identifier for this instance of the module. Used to name output files",
-    envvar="NZINSARGPS_VLM_PIPELINE_ID",
-)
-@click.option(
     "--min-qf",
     help="Minimum value of data quality to use (default = 5)",
     default=5,
@@ -30,9 +23,9 @@ import click
 @click.option(
     "--input-fname",
     type=str,
-    default="data/input/NZ_2km.txt",
+    required=True,
     envvar="NZINSARGPS_VLM_INPUT_FNAME",
-    help="input file name (??)",
+    help="Input .txt file",
 )
 @click.option(
     "--pyear-start",
@@ -89,15 +82,13 @@ import click
     default=50,
 )
 @click.option(
-    "--output-path",
+    "--output-lslr-file",
     type=str,
-    envvar="NZINSARGPS_VLM_OUTPUT_PATH",
+    envvar="NZINSARGPS_VLM_OUTPUT_LSLR_FILE",
     help="Path to output LSL file.",
     required=True,
-    type=str,
 )
 def main(
-    pipeline_id,
     min_qf,
     use_boprates,
     input_fname,
@@ -109,7 +100,7 @@ def main(
     rngseed,
     location_file,
     chunksize,
-    output_path,
+    output_file,
 ):
     """Run the NZInsarGPS verticallandmotion module"""
     click.echo("Hello from nzinsargps-verticallandmotion!")
@@ -129,8 +120,7 @@ def main(
         pyear_end=pyear_end,
         pyear_step=pyear_step,
         chunksize=chunksize,
-        pipeline_id=pipeline_id,
-        output_path=output_path,
+        output_file=output_file,
     )
 
 
