@@ -45,7 +45,7 @@ import click
     envvar="NZINSARGPS_VLM_PYEAR_START",
     help="Projection year start [default=2020]",
     default=2020,
-    type=click.IntRange(min=2020),
+    type=click.IntRange(min=2000),
 )
 @click.option(
     "--pyear-end",
