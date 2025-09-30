@@ -84,7 +84,8 @@ import click
     "--location-file",
     envvar="NZINSARGPS_VLM_LOCATION_FILE",
     help="Path to location file for postprocessing",
-    default="location.lst",
+    required=True,
+    type=str,
 )
 @click.option(
     "--chunksize",
