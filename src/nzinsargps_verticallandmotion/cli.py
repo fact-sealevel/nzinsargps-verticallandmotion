@@ -66,6 +66,7 @@ import click
     envvar="NZINSARGPS_VLM_BASEYEAR",
     help="Year to which projections are referenced [default = 2000]",
     default=2000,
+    type=click.IntRange(min=2000, max=2300),
 )
 @click.option(
     "--nsamps",
