@@ -99,7 +99,8 @@ import click
     type=str,
     envvar="NZINSARGPS_VLM_OUTPUT_PATH",
     help="Path to output LSL file.",
-    default="output",
+    required=True,
+    type=str,
 )
 def main(
     pipeline_id,
