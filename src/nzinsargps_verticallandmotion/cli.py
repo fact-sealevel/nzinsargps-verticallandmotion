@@ -6,12 +6,6 @@ from nzinsargps_verticallandmotion.NZInsarGPS_verticallandmotion_postprocess imp
 )
 import click
 
-# input args to add
-# input type (in preprocess)
-# locationfile
-# chunksize
-
-
 @click.command()
 @click.option(
     "--pipeline-id",
