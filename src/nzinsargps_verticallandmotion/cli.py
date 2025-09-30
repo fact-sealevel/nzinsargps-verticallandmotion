@@ -21,7 +21,7 @@ import click
     envvar="NZINSARGPS_VLM_PIPELINE_ID",
 )
 @click.option(
-    "--min_qf",
+    "--min-qf",
     help="Minimum value of data quality to use (default = 5)",
     default=5,
     envvar="NZINSARGPS_VLM_MIN_QF",
