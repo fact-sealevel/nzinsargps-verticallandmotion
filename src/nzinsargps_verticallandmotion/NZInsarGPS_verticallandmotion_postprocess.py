@@ -1,6 +1,5 @@
 import numpy as np
 
-# import pickle
 import os
 import time
 import argparse
@@ -97,19 +96,13 @@ def NZInsarGPS_postprocess_verticallandmotion(
     lons = preprocess_dict["lons"]
     rates = preprocess_dict["rates"]
     sds = preprocess_dict["sds"]
-    # min_qf = preprocess_dict["min_qf"]  No longer used
-    # use_boprates = preprocess_dict["use_boprates"]
-
+   
     # Define the target years
     targyears = np.arange(pyear_start, pyear_end + 1, pyear_step)
     targyears = np.union1d(targyears, baseyear)
 
     # Load site locations
     (_, site_ids, site_lats, site_lons) = ReadLocationFile(locationfilename)
-
-    # Dimension variables -- not used
-    # nyears = len(targyears)
-    # nsites = len(site_ids)
 
     # Find the nearest points for the query lats/lons
     site_ids_map = np.array(NearestPoints(site_lats, site_lons, lats, lons, tol=None))
