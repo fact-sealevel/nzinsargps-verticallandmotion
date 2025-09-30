@@ -27,7 +27,7 @@ import click
     envvar="NZINSARGPS_VLM_MIN_QF",
 )
 @click.option(
-    "--use_boprates",
+    "--use-boprates",
     type=int,
     default=1,
     help="Use the BOP corrected rates instead of the raw VLM rates (default = 1)",
