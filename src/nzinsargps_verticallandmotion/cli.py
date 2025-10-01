@@ -100,7 +100,7 @@ def main(
     rngseed,
     location_file,
     chunksize,
-    output_file,
+    output_lslr_file,
 ):
     """Run the NZInsarGPS verticallandmotion module"""
     click.echo("Hello from nzinsargps-verticallandmotion!")
@@ -120,7 +120,7 @@ def main(
         pyear_end=pyear_end,
         pyear_step=pyear_step,
         chunksize=chunksize,
-        output_file=output_file,
+        output_lslr_file=output_lslr_file,
     )
 
 

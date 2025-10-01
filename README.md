@@ -20,39 +20,23 @@ mkdir -p ./data/output
 echo "New_York	12	40.70	-74.01" > ./data/input/location.lst
 ```
 
-Now, run the CLI application. There are multiple ways to do this. You can clone the repository and run the program locally using `uv` or in a Docker container built from the provided Dockerfile. Alternatively, you can run the scripts that are hosted remotely on GitHub using `uvx --from`.
-
-### Running in a container
-
 After you've cloned the repo and downloaded the necessary data, from the root directory, create a docker container:
 ```shell
 docker build -t nzinsargps-verticallandmotion .
 ```
 
-Then, run the container, mounting a volume in the container to the location of the repo on your machine. Execute the application and pass the necessary arguments to the CLI tool:
+Then, run the container, mounting a volume in the container to the location of the repo on your machine, the location of the input data and where the output data will be written. Execute the application and pass the necessary arguments to the CLI tool:
 ```shell
-docker run --rm --volume=path/to/local/nzinsargps-verticallandmotion:/opt/nzinsar_vlm \
--w /opt/nzinsar_vlm nzinsargps-verticallandmotion \
---input-fname data/input/NZ_2km.txt --location-file data/input/location.lst \
---output-path data/output/lslr.nc --rngseed 5678
-```
-### Running locally
-
-If you've cloned the repository locally, from the root directory, run the application using `uv`:
-```shell
-uv run  --input-fname data/input/NZ_2km.txt \
---location-file data/input/location.lst \ --output-path data/output/lslr.nc --rngseed 5678
-```
-
-### Running remote scripts
-Alternatively, from the root directory, call the scripts hosted remotely in the GitHub repo:
-```shell
-uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package \
-nzinsargps-verticallandmotion \
- --input-fname path/to/data/input/NZ_2km.txt --location-file path/to/data/input/location.lst \
- --output-path path/to/data/output/lslr.nc \
- --rngseed 5678
- 
+ docker run --rm \                                                          
+  -v path/to/nzinsargps-verticallandmotion:/opt/nzinsargps_vlm \
+  -v ./data/input:/input:ro \
+  -v ./data/output:/output \
+  -w /opt/nzinsargps_vlm \
+  nzinsargps-verticallandmotion \
+  --input-fname /input/NZ_2km.txt \
+  --location-file /input/location.lst \
+  --output-lslr-file /output/lslr.nc \
+  --rngseed 5678
 ```
 
 ## Features 
@@ -83,12 +67,9 @@ Options:
 
 See this help documentation by passing the `--help` flag when running the application in any of the options above. For example: 
 
-```shell
-uvx --from git+https://github.com/e-marshall/nzinsargps-verticallandmotion.git@package nzinsargps-verticallandmotion --help
-```   
 
 ```shell
-uv run nzinsargps-verticallandmotion --help
+docker run --rm nzinsargps-verticallandmotion --help
 ```
 
 ## Results
