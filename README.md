@@ -61,7 +61,7 @@ Options:
                                [default=1234]
   --location-file TEXT         Path to location file for postprocessing
   --chunksize INTEGER          Chunk size for postprocessing [default=50]
-  --output-path TEXT           Path to output directory
+  --output-lslr-file TEXT      Path to output lslr netCDF file
   --help                       Show this message and exit.
   ```
 
