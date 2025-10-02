@@ -1,6 +1,5 @@
 # nzinsargps-verticallandmotion
 
-Application producing ...
 This module contains the vertical land motion module from the NZInsarGPS workflow.
 
 > [!CAUTION]
@@ -27,12 +26,10 @@ docker build -t nzinsargps-verticallandmotion .
 
 Then, run the container, mounting a volume in the container to the location of the repo on your machine, the location of the input data and where the output data will be written. Execute the application and pass the necessary arguments to the CLI tool:
 ```shell
- docker run --rm \                                                          
-  -v path/to/nzinsargps-verticallandmotion:/opt/nzinsargps_vlm \
-  -v ./data/input:/input:ro \
+ docker run --rm \
+  -v ./data/input:/input:ro \
   -v ./data/output:/output \
-  -w /opt/nzinsargps_vlm \
-  nzinsargps-verticallandmotion \
+  ghcr.io/stcaf-org/nzinsargps-verticallandmotion:latest \
   --input-fname /input/NZ_2km.txt \
   --location-file /input/location.lst \
   --output-lslr-file /output/lslr.nc \
@@ -70,6 +67,12 @@ See this help documentation by passing the `--help` flag when running the applic
 
 ```shell
 docker run --rm nzinsargps-verticallandmotion --help
+```
+
+## Building the container locally
+You can build the container with Docker by cloning the repository locally and then running the following command from the repository root:
+```shell
+docker build -t nzinsargps-verticallandmotion .
 ```
 
 ## Results
