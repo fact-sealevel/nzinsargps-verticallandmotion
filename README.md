@@ -1,6 +1,5 @@
 # nzinsargps-verticallandmotion
 
-Application producing ...
 This module contains the vertical land motion module from the NZInsarGPS workflow.
 
 > [!CAUTION]
@@ -76,6 +75,6 @@ docker run --rm nzinsargps-verticallandmotion --help
 If this module runs successfully, a single netCDF containing projections of local sea level change will appear in ./data/output. 
 
 ## Support
-Source code is available online at https://github.com/stcaf-org/nzinsargps-verticallandmotion. This software is open source, available under the MIT license.
+Source code is available online at https://github.com/facts-org/nzinsargps-verticallandmotion. This software is open source, available under the MIT license.
 
-Please file issues in the issue tracker at https://github.com/stcaf-org/nzinsargps-verticallandmotion/issues.
+Please file issues in the issue tracker at https://github.com/facts-org/nzinsargps-verticallandmotion/issues.
