@@ -71,7 +71,6 @@ def NZInsarGPS_preprocess_verticallandmotion(
     min_quality_flag: int,
     use_boprates: int,
 ) -> dict:
-    
     # Define the input file based on input type
     # type2file = {"grid_insar": "VLM-grid_insar.dat", "grid_gps": "VLM-grid_gps.dat", "hires": "coast_ins.dat"}
     # if inputtype not in type2file.keys():
@@ -102,7 +101,6 @@ def NZInsarGPS_preprocess_verticallandmotion(
     }
 
     return outdata
-    
 
 
 if __name__ == "__main__":

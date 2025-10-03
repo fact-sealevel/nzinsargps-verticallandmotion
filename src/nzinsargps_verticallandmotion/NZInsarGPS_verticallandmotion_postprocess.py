@@ -1,6 +1,5 @@
 import numpy as np
 
-import os
 import time
 import argparse
 from scipy.stats import norm
@@ -90,13 +89,12 @@ def NZInsarGPS_postprocess_verticallandmotion(
     chunksize,
     output_lslr_file,
 ):
-    
     # Extract the relevant data
     lats = preprocess_dict["lats"]
     lons = preprocess_dict["lons"]
     rates = preprocess_dict["rates"]
     sds = preprocess_dict["sds"]
-   
+
     # Define the target years
     targyears = np.arange(pyear_start, pyear_end + 1, pyear_step)
     targyears = np.union1d(targyears, baseyear)
@@ -174,7 +172,6 @@ def NZInsarGPS_postprocess_verticallandmotion(
             }
         },
     )
-   
 
 
 if __name__ == "__main__":
