@@ -62,7 +62,7 @@ Options:
   --help                       Show this message and exit.
   ```
 
-See this help documentation by passing the `--help` flag when running the application in any of the options above. For example: 
+See this help documentation by passing the `--help` flag when running the application, for example: 
 
 
 ```shell
