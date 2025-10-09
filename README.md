@@ -6,8 +6,12 @@ This module contains the vertical land motion module from the NZInsarGPS workflo
 > This is a prototype. It is likely to change in breaking ways. It might delete all your data. Don't use it in production.
 
 ## Example
+Clone the GitHub repository:
+```shell
+git clone git@github.com:fact-sealevel/nzinsargps-verticallandmotion
+```
 
-First, create a new directory and download the required input data for the run:
+Create a new directory and download the required input data for the run:
 ```shell
 mkdir -p ./data/input
 curl -sL https://zenodo.org/record/7478192/files/NZInsarGPS_verticallandmotion_preprocess_data.tgz | tar -zx -C ./data/input
@@ -19,21 +23,15 @@ mkdir -p ./data/output
 echo "New_York	12	40.70	-74.01" > ./data/input/location.lst
 ```
 
-After you've cloned the repo and downloaded the necessary data, from the root directory, create a docker container:
+Then, run the container associated with the package, passing the necessary arguments to the CLI tool:
 ```shell
-docker build -t nzinsargps-verticallandmotion .
-```
-
-Then, run the container, mounting a volume in the container to the location of the repo on your machine, the location of the input data and where the output data will be written. Execute the application and pass the necessary arguments to the CLI tool:
-```shell
- docker run --rm \
-  -v ./data/input:/input:ro \
-  -v ./data/output:/output \
-  ghcr.io/stcaf-org/nzinsargps-verticallandmotion:latest \
-  --input-fname /input/NZ_2km.txt \
-  --location-file /input/location.lst \
-  --output-lslr-file /output/lslr.nc \
-  --rngseed 5678
+docker run --rm \
+-v ./data/input:/mnt/nz_vlm_data_in:ro \
+-v ./data/output:/mnt/nz_vlm_data_out \
+ghcr.io/fact-sealevel/nzinsargps-verticallandmotion:edge \
+--input-fname /mnt/nz_vlm_data_in/NZ_2km.txt \
+--location-file /mnt/nz_vlm_data_in/location.lst \
+--output-lslr-file /mnt/nz_vlm_data_out/lslr.nc 
 ```
 
 ## Features 
@@ -43,22 +41,23 @@ Usage: nzinsargps-verticallandmotion [OPTIONS]
   Run the NZInsarGPS verticallandmotion module
 
 Options:
-  --min_qf INTEGER             Minimum value of data quality to use (default =
+  --min-qf INTEGER             Minimum value of data quality to use (default =
                                5)
-  --use_boprates INTEGER       Use the BOP corrected rates instead of the raw
+  --use-boprates INTEGER       Use the BOP corrected rates instead of the raw
                                VLM rates (default = 1)
-  --input-fname TEXT           input file name (??)
-  --pyear-start INTEGER RANGE  Projection year start [default=2020]  [x>=2020]
+  --input-fname TEXT           Input .txt file  [required]
+  --pyear-start INTEGER RANGE  Projection year start [default=2020]  [x>=2000]
   --pyear-end INTEGER RANGE    Projection year end [default=2100]  [x<=2300]
   --pyear-step INTEGER RANGE   Projection year step [default=10]  [x>=1]
-  --baseyear INTEGER           Year to which projections are referenced
-                               [default = 2000]
+  --baseyear INTEGER RANGE     Year to which projections are referenced
+                               [default = 2000]  [2000<=x<=2300]
   --nsamps INTEGER             Number of samples to draw [default=500]
   --rngseed INTEGER            Seed for the random number generator
                                [default=1234]
   --location-file TEXT         Path to location file for postprocessing
+                               [required]
   --chunksize INTEGER          Chunk size for postprocessing [default=50]
-  --output-lslr-file TEXT      Path to output lslr netCDF file
+  --output-lslr-file TEXT      Path to output LSL file.  [required]
   --help                       Show this message and exit.
   ```
 
@@ -70,7 +69,7 @@ docker run --rm nzinsargps-verticallandmotion --help
 ```
 
 ## Building the container locally
-You can build the container with Docker by cloning the repository locally and then running the following command from the repository root:
+You can build the container with Docker by running the following command from the repository root:
 ```shell
 docker build -t nzinsargps-verticallandmotion .
 ```
