@@ -19,21 +19,15 @@ mkdir -p ./data/output
 echo "New_York	12	40.70	-74.01" > ./data/input/location.lst
 ```
 
-After you've cloned the repo and downloaded the necessary data, from the root directory, create a docker container:
-```shell
-docker build -t nzinsargps-verticallandmotion .
-```
-
-Then, run the container, mounting a volume in the container to the location of the repo on your machine, the location of the input data and where the output data will be written. Execute the application and pass the necessary arguments to the CLI tool:
+Then, run the container associated with the package, passing the necessary arguments to the CLI tool:
 ```shell
  docker run --rm \
-  -v ./data/input:/input:ro \
-  -v ./data/output:/output \
-  ghcr.io/stcaf-org/nzinsargps-verticallandmotion:latest \
-  --input-fname /input/NZ_2km.txt \
-  --location-file /input/location.lst \
-  --output-lslr-file /output/lslr.nc \
-  --rngseed 5678
+  -v ./data/input:/mnt/nz_vlm_data_in:ro \
+  -v ./data/output:/mnt/nz_vlm_data_out \
+  ghcr.io/fact-sealevel/nzinsargps-verticallandmotion:edge \
+  --input-fname /mnt/nz_vlm_data_in/NZ_2km.txt \
+  --location-file /mnt/nz_vlm_data_in/location.lst \
+  --output-lslr-file /mnt/nz_vlm_data_out/lslr.nc \
 ```
 
 ## Features 
