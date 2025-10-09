@@ -1,7 +1,7 @@
 [project]
 name = "nzinsargps-verticallandmotion"
 version = "0.1.0"
-description = "TODO"
+description = "This is a containerized application that estimates future local sea level change due to vertical land motion by sampling from and extrapolating a gridded land motion dataset."
 readme = "README.md"
 authors = [ 
 	{ name = "Emma Marshall", email = "emarshall@rhg.com" }
