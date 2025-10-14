@@ -1,6 +1,6 @@
 # nzinsargps-verticallandmotion
 
-This module contains the vertical land motion module from the NZInsarGPS workflow.
+This module contains the vertical land motion module from the NZInsarGPS workflow of the Framework for Assessing Changes To Sea-level ([FACTS](https://github.com/radical-collaboration/facts) `v1.0`.
 
 > [!CAUTION]
 > This is a prototype. It is likely to change in breaking ways. It might delete all your data. Don't use it in production.
@@ -75,7 +75,7 @@ docker build -t nzinsargps-verticallandmotion .
 ```
 
 ## Results
-If this module runs successfully, a single netCDF containing projections of local sea level change will appear in ./data/output. 
+If this module runs successfully, a single netCDF containing projections of local sea level change will appear in `./data/output`. 
 
 ## Support
 Source code is available online at https://github.com/facts-org/nzinsargps-verticallandmotion. This software is open source, available under the MIT license.
