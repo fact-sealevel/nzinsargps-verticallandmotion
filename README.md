@@ -1,6 +1,6 @@
 # nzinsargps-verticallandmotion
 
-This module contains the vertical land motion module from the NZInsarGPS workflow of the Framework for Assessing Changes To Sea-level ([FACTS](https://github.com/radical-collaboration/facts) `v1.0`.
+This module contains the vertical land motion module from the NZInsarGPS workflow of the Framework for Assessing Changes To Sea-level ([FACTS](https://github.com/radical-collaboration/facts)) `v1.0`.
 
 > [!CAUTION]
 > This is a prototype. It is likely to change in breaking ways. It might delete all your data. Don't use it in production.
