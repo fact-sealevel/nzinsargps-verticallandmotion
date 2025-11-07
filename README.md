@@ -28,7 +28,7 @@ Then, run the container associated with the package, passing the necessary argum
 docker run --rm \
 -v ./data/input:/mnt/nz_vlm_data_in:ro \
 -v ./data/output:/mnt/nz_vlm_data_out \
-ghcr.io/fact-sealevel/nzinsargps-verticallandmotion:edge \
+ghcr.io/fact-sealevel/nzinsargps-verticallandmotion:v0.1.0 \
 --input-fname /mnt/nz_vlm_data_in/NZ_2km.txt \
 --location-file /mnt/nz_vlm_data_in/location.lst \
 --output-lslr-file /mnt/nz_vlm_data_out/lslr.nc 
