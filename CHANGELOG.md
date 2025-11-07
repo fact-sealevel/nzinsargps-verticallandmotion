@@ -6,7 +6,7 @@ The format is based on[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), 
 ## [Unreleased]
 
 
-## [v0.1.0] - 2025-11-07
+## [0.1.0] - 2025-11-07
 
 ### Added
 - Added scripts from original nzinsargps-verticallandmotion FACTS module and refactored them to work as a CLICK CLI app. ([PR 1](https://github.com/fact-sealevel/nzinsargps-verticallandmotion/pull/1))
