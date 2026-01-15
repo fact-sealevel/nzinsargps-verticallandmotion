@@ -5,6 +5,10 @@ from nzinsargps_verticallandmotion.NZInsarGPS_verticallandmotion_postprocess imp
     NZInsarGPS_postprocess_verticallandmotion,
 )
 import click
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 @click.command()
@@ -89,6 +93,11 @@ import click
     help="Path to output LSL file.",
     required=True,
 )
+@click.option(
+    "--debug/--no-debug",
+    default=False,
+    envvar="NZINSARGPS_VLM_DEBUG",
+)
 def main(
     min_qf,
     use_boprates,
@@ -102,15 +111,23 @@ def main(
     location_file,
     chunksize,
     output_lslr_file,
+    debug,
 ):
     """Run the NZInsarGPS verticallandmotion module"""
     click.echo("Hello from nzinsargps-verticallandmotion!")
+    if debug:
+        logging.root.setLevel(logging.DEBUG)
+    else:
+        logging.root.setLevel(logging.INFO)
 
     # Run the preprocessing stage
+    logger.info("Starting preprocessing step...")
     preprocess_dict = NZInsarGPS_preprocess_verticallandmotion(
         inputfile=input_fname, min_quality_flag=min_qf, use_boprates=use_boprates
     )
+    logger.info("Finished preprocessing step")
 
+    logger.info("Starting postprocessing step...")
     NZInsarGPS_postprocess_verticallandmotion(
         preprocess_dict=preprocess_dict,
         nsamps=nsamps,
@@ -123,6 +140,7 @@ def main(
         chunksize=chunksize,
         output_lslr_file=output_lslr_file,
     )
+    logger.info("Finished postprocessing step")
 
 
 if __name__ == "__main__":
